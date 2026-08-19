@@ -25,12 +25,17 @@ npm run dev
 
 当前是占位素材，正式上线前替换：
 
-- `public/logo.svg`：协会 Logo
+- `public/logo.png`：协会 Logo（已替换为你的 logo.png 压缩版）
 - `public/images/hero.png`：首页大图
 - `public/images/about.png`：关于页面图片
 - `public/images/activity-1.png` 等：活动卡片图片
 
 占位图片可运行 `npm run assets` 重新生成。
+
+看不懂项目结构或不知道怎么改内容时，先看：
+
+- [项目结构说明.md](项目结构说明.md)：逐级介绍每个文件夹是干什么的
+- [内容修改指南.md](内容修改指南.md)：手把手教怎么改招新公告、活动、项目和图片
 
 ## 部署到 Ubuntu Server
 
