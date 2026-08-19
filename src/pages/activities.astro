@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ActivityCard from '../components/ActivityCard.astro';
+
+const activities = (await getCollection('activities'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<BaseLayout
+  title="活动动态 - 计算机协会"
+  description="计算机协会近期活动与招新安排。"
+>
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <p class="eyebrow">Activities</p>
+      <h1>活动动态</h1>
+      <p>招新宣讲、工作坊、讲座和开放日都会在这里发布，活动资料也会逐步沉淀到协会仓库。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="card-grid">
+        {activities.map((activity, index) => (
+          <ActivityCard
+            title={activity.data.title}
+            date={activity.data.date}
+            location={activity.data.location}
+            category={activity.data.category}
+            summary={activity.data.summary}
+            image={`/images/activity-${(index % 3) + 1}.png`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

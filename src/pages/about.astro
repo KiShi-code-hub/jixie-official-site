@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+
+const values = [
+  { icon: 'lightbulb', title: '开放', text: '欢迎零基础同学，也欢迎有经验的同学分享自己的积累。' },
+  { icon: 'zap', title: '实践', text: '不只听课，更鼓励用项目、活动和比赛把想法做出来。' },
+  { icon: 'users-round', title: '协作', text: '不同部门与方向之间互相支持，共同完成协会目标。' },
+];
+
+const timeline = [
+  { year: '2015', title: '协会成立', text: '由几位对计算机感兴趣的同学发起，逐步发展为院级社团。' },
+  { year: '2018', title: '开设技术方向', text: '在编程之外增加 Web、网络与竞赛等方向，扩大学习覆盖面。' },
+  { year: '2022', title: '项目与活动常态化', text: '形成年度活动体系，开始沉淀协会项目和公开学习资料。' },
+  { year: '2026', title: '官网上线', text: '搭建对外展示官网，把协会动态、项目和招新信息集中发布。' },
+];
+---
+
+<BaseLayout
+  title="关于我们 - 计算机协会"
+  description="了解计算机协会的宗旨、价值观、发展历程与部门设置。"
+>
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <p class="eyebrow">About Us</p>
+      <h1>关于计算机协会</h1>
+      <p>计算机协会是一个以兴趣驱动的学生社团，为学院同学提供学习计算机技术、参与项目实践和交流分享的平台。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="协会理念"
+        title="我们相信兴趣是最好的起点"
+        description="协会存在的意义不是筛选谁更厉害，而是让不同基础的同学都能找到愿意投入的方向。"
+      />
+      <div class="values-grid">
+        {values.map((item) => (
+          <article class="card value-card">
+            <span class="feature-icon"><Icon name={item.icon} /></span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="发展历程"
+        title="一路走来的计协"
+        description="这些时间点只是协会历程的开始，更多故事还在继续发生。"
+      />
+      <div class="timeline">
+        {timeline.map((item) => (
+          <div class="timeline-item">
+            <span class="timeline-year">{item.year}</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="部门设置"
+        title="四个部门，各司其职"
+        description="技术部是协会的技术核心，其余部门共同支撑协会的日常运转。"
+      />
+      <div class="card-grid-4">
+        <article class="card feature-card">
+          <span class="feature-icon"><Icon name="code-xml" /></span>
+          <h3>技术部</h3>
+          <p>开发协会网站、小程序和工具，组织入门培训与技术分享。</p>
+        </article>
+        <article class="card feature-card">
+          <span class="feature-icon"><Icon name="megaphone" /></span>
+          <h3>宣传部</h3>
+          <p>负责推文、海报、活动摄影与对外形象维护。</p>
+        </article>
+        <article class="card feature-card">
+          <span class="feature-icon"><Icon name="users" /></span>
+          <h3>组织部</h3>
+          <p>策划活动、协调场地、管理报名与现场执行。</p>
+        </article>
+        <article class="card feature-card">
+          <span class="feature-icon"><Icon name="trophy" /></span>
+          <h3>竞赛部</h3>
+          <p>组织算法训练、竞赛报名与备赛经验分享。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

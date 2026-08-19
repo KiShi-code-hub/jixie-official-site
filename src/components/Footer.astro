@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+
+const quickLinks = [
+  { href: '/about/', label: '关于协会' },
+  { href: '/activities/', label: '活动动态' },
+  { href: '/projects/', label: '技术项目' },
+  { href: '/join/', label: '加入我们' },
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/logo.svg" alt="计算机协会 Logo" width="44" height="44" />
+      <div>
+        <p class="footer-name">计算机协会</p>
+        <p>用代码连接热爱，一起做点有趣的事。</p>
+      </div>
+    </div>
+    <div class="footer-links">
+      <p class="footer-label">快速导航</p>
+      {quickLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </div>
+    <div class="footer-contact">
+      <p class="footer-label">联系我们</p>
+      <p><Icon name="message-circle" /> 招新 QQ 群：123456789</p>
+      <p><Icon name="mail" /> jixie@example.com</p>
+      <p><Icon name="map-pin" /> 学院信息楼 2 层</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 计算机协会</span>
+    <span>mzjx.kishi.uk</span>
+  </div>
+</footer>

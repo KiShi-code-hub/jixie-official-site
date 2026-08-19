@@ -1,0 +1,14 @@
+# Cloudflare Tunnel 配置模板
+# 1. 在服务器上安装 cloudflared 并执行: cloudflared tunnel login
+# 2. 创建隧道: cloudflared tunnel create jixie-site
+# 3. 把下面的 <隧道ID> 替换为实际 ID，并把 credentials-file 指向对应 json
+# 4. 绑定域名: cloudflared tunnel route dns <隧道ID> mzjx.kishi.uk
+# 5. 启动: cloudflared tunnel --config /etc/cloudflared/config.yml run jixie-site
+
+tunnel: <隧道ID>
+credentials-file: /etc/cloudflared/<隧道ID>.json
+
+ingress:
+  - hostname: mzjx.kishi.uk
+    service: http://127.0.0.1:8080
+  - service: http_status:404

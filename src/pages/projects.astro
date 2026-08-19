@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects'))
+  .filter((entry) => !entry.data.draft);
+---
+
+<BaseLayout
+  title="技术项目 - 计算机协会"
+  description="计算机协会正在开发与维护的技术项目。"
+>
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <p class="eyebrow">Projects</p>
+      <h1>技术项目</h1>
+      <p>协会把日常需求转化为真实项目，项目代码和资料会持续沉淀，方便后来者参与学习。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="card-grid">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            category={project.data.category}
+            status={project.data.status}
+            tech={project.data.tech}
+            summary={project.data.summary}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

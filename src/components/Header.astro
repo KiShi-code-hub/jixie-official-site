@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+
+const navItems = [
+  { href: '/', label: '首页' },
+  { href: '/about/', label: '关于' },
+  { href: '/activities/', label: '活动' },
+  { href: '/projects/', label: '项目' },
+  { href: '/join/', label: '招新' },
+  { href: '/contact/', label: '联系' },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label="计算机协会首页">
+    <img src="/logo.svg" alt="计算机协会 Logo" width="38" height="38" />
+    <span class="brand-text">计算机协会</span>
+  </a>
+  <nav class="main-nav" aria-label="主导航">
+    {navItems.map((item) => (
+      <a href={item.href} class:list={{ active: currentPath === item.href.replace(/\/$/, '') || (item.href === '/' && currentPath === '/') }}>
+        {item.label}
+      </a>
+    ))}
+  </nav>
+  <a class="btn btn-accent btn-header" href="/join/">
+    <Icon name="megaphone" /> 加入我们
+  </a>
+  <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false">
+    <Icon name="terminal" />
+  </button>
+</header>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.main-nav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  }
+</script>

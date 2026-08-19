@@ -1,0 +1,9 @@
+services:
+  website:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: jixie-website
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:80"

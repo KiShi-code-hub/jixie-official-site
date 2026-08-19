@@ -1,0 +1,194 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ActivityCard from '../components/ActivityCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Icon from '../components/Icon.astro';
+
+const announcements = (await getCollection('announcements'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+const activities = (await getCollection('activities'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+const projects = (await getCollection('projects'))
+  .filter((entry) => !entry.data.draft);
+
+const latestAnnouncement = announcements[0];
+
+const departments = [
+  {
+    icon: 'code-xml',
+    title: '技术部',
+    description: '负责网站、小程序与自动化工具开发，组织技术分享与培训。',
+  },
+  {
+    icon: 'megaphone',
+    title: '宣传部',
+    description: '负责活动宣传、推文排版、海报设计与摄影记录。',
+  },
+  {
+    icon: 'users',
+    title: '组织部',
+    description: '负责活动策划、场地协调、人员统计与现场执行。',
+  },
+  {
+    icon: 'trophy',
+    title: '竞赛部',
+    description: '组织算法训练与学科竞赛，分享备赛经验和题解。',
+  },
+];
+---
+
+<BaseLayout
+  title="计算机协会 - 计协官网"
+  description="计算机协会官方站点，展示协会动态、技术项目、活动与招新信息。"
+>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <p class="hero-eyebrow"><Icon name="terminal" /> Computer Association</p>
+        <h1>计算机协会<br />把热爱写进代码</h1>
+        <p class="hero-subtitle">
+          我们是学院内的计算机兴趣社团，聚集对编程、Web、网络安全与算法感兴趣的同学，一起学习、实践和做项目。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-accent" href="/join/">
+            <Icon name="megaphone" /> 查看招新公告
+          </a>
+          <a class="btn btn-outline" href="/about/">
+            <Icon name="users-round" /> 了解协会
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><strong>2015</strong><span>协会成立</span></div>
+          <div class="hero-stat"><strong>120+</strong><span>在册成员</span></div>
+          <div class="hero-stat"><strong>30+</strong><span>年度活动</span></div>
+          <div class="hero-stat"><strong>6</strong><span>技术方向</span></div>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="/images/hero.png" alt="协会同学在机房交流的现场照片" />
+        <p class="hero-caption"><Icon name="sparkles" /> 协会成员在机房交流与学习</p>
+      </div>
+    </div>
+  </section>
+
+  {latestAnnouncement && (
+    <section class="announcement-band">
+      <div class="container announcement-grid">
+        <div>
+          <p class="announcement-date"><Icon name="calendar-days" /> {latestAnnouncement.data.date} · {latestAnnouncement.data.category}</p>
+          <h2>{latestAnnouncement.data.title}</h2>
+          <p>{latestAnnouncement.data.summary}</p>
+        </div>
+        <a class="btn btn-accent" href="/join/">
+          <Icon name="chevron-right" /> 查看详情
+        </a>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container about-strip">
+      <div class="about-copy">
+        <SectionHeading
+          eyebrow="关于计协"
+          title="一个可以一起折腾技术的社团"
+          description="计算机协会为对计算机感兴趣的同学提供交流、培训与实践平台。无论你有没有编程基础，都可以在这里找到适合自己的方向。"
+        />
+        <div class="about-actions">
+          <a class="btn btn-dark" href="/about/">
+            <Icon name="arrow-right" /> 了解更多
+          </a>
+          <a class="btn btn-outline" href="/projects/">
+            <Icon name="rocket" /> 看看项目
+          </a>
+        </div>
+      </div>
+      <img src="/images/about.png" alt="协会成员一起学习和讨论的现场照片" />
+    </div>
+  </section>
+
+  <section class="section section-tight">
+    <div class="container">
+      <SectionHeading
+        eyebrow="部门设置"
+        title="在计协，找到适合你的位置"
+        description="四个部门覆盖技术、宣传、组织与竞赛，各部门之间也会经常协作。"
+      />
+      <div class="card-grid-4">
+        {departments.map((item) => (
+          <article class="card feature-card">
+            <span class="feature-icon"><Icon name={item.icon} /></span>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="活动动态"
+        title="近期活动"
+        description="招新宣讲、入门工作坊、技术讲座与社团开放日，都在这里发布。"
+      />
+      <div class="card-grid">
+        {activities.slice(0, 3).map((activity) => (
+          <ActivityCard
+            title={activity.data.title}
+            date={activity.data.date}
+            location={activity.data.location}
+            category={activity.data.category}
+            summary={activity.data.summary}
+            image="/images/activity-1.png"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="技术项目"
+        title="协会正在做的事"
+        description="项目从协会真实需求出发，也欢迎新成员加入一起开发。"
+      />
+      <div class="card-grid">
+        {projects.slice(0, 3).map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            category={project.data.category}
+            status={project.data.status}
+            tech={project.data.tech}
+            summary={project.data.summary}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <div>
+        <h2>准备好加入计协了吗？</h2>
+        <p>零基础也可以，我们陪你从第一行代码开始。</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-accent" href="/join/">
+          <Icon name="megaphone" /> 加入我们
+        </a>
+        <a class="btn btn-outline" href="/contact/">
+          <Icon name="message-circle" /> 联系我们
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

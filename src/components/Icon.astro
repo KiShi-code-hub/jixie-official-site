@@ -1,0 +1,65 @@
+---
+import arrowRight from 'lucide-static/icons/arrow-right.svg?raw';
+import calendarDays from 'lucide-static/icons/calendar-days.svg?raw';
+import check from 'lucide-static/icons/check.svg?raw';
+import chevronRight from 'lucide-static/icons/chevron-right.svg?raw';
+import circleCheck from 'lucide-static/icons/circle-check.svg?raw';
+import clipboard from 'lucide-static/icons/clipboard.svg?raw';
+import clock from 'lucide-static/icons/clock.svg?raw';
+import codeXml from 'lucide-static/icons/code-xml.svg?raw';
+import externalLink from 'lucide-static/icons/external-link.svg?raw';
+import globe from 'lucide-static/icons/globe.svg?raw';
+import lightbulb from 'lucide-static/icons/lightbulb.svg?raw';
+import mail from 'lucide-static/icons/mail.svg?raw';
+import mapPin from 'lucide-static/icons/map-pin.svg?raw';
+import megaphone from 'lucide-static/icons/megaphone.svg?raw';
+import messageCircle from 'lucide-static/icons/message-circle.svg?raw';
+import rocket from 'lucide-static/icons/rocket.svg?raw';
+import server from 'lucide-static/icons/server.svg?raw';
+import shieldCheck from 'lucide-static/icons/shield-check.svg?raw';
+import smartphone from 'lucide-static/icons/smartphone.svg?raw';
+import sparkles from 'lucide-static/icons/sparkles.svg?raw';
+import terminal from 'lucide-static/icons/terminal.svg?raw';
+import trophy from 'lucide-static/icons/trophy.svg?raw';
+import users from 'lucide-static/icons/users.svg?raw';
+import usersRound from 'lucide-static/icons/users-round.svg?raw';
+import zap from 'lucide-static/icons/zap.svg?raw';
+
+const icons = {
+  'arrow-right': arrowRight,
+  'calendar-days': calendarDays,
+  check,
+  'chevron-right': chevronRight,
+  'circle-check': circleCheck,
+  clipboard,
+  clock,
+  'code-xml': codeXml,
+  'external-link': externalLink,
+  globe,
+  lightbulb,
+  mail,
+  'map-pin': mapPin,
+  megaphone,
+  'message-circle': messageCircle,
+  rocket,
+  server,
+  'shield-check': shieldCheck,
+  smartphone,
+  sparkles,
+  terminal,
+  trophy,
+  users,
+  'users-round': usersRound,
+  zap,
+};
+
+interface Props {
+  name: keyof typeof icons | string;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+const icon = icons[name] ?? terminal;
+---
+
+<span class:list={['icon', className]} set:html={icon} aria-hidden="true" />

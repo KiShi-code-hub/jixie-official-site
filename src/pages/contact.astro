@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+
+const contacts = [
+  { icon: 'message-circle', title: '招新 QQ 群', text: '123456789' },
+  { icon: 'mail', title: '协会邮箱', text: 'jixie@example.com' },
+  { icon: 'map-pin', title: '活动地点', text: '学院信息楼 2 层' },
+  { icon: 'clock', title: '活动时间', text: '每周五晚 19:00 技术分享' },
+];
+---
+
+<BaseLayout
+  title="联系我们 - 计算机协会"
+  description="联系计算机协会的方式与常见联系方式。"
+>
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <p class="eyebrow">Contact</p>
+      <h1>联系我们</h1>
+      <p>有问题可以加入招新群，也可以直接联系协会负责人。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="联系方式"
+        title="找到我们"
+        description="有问题可以加入招新群，也可以直接联系协会负责人。"
+      />
+      <div class="contact-grid">
+        {contacts.map((item) => (
+          <article class="card contact-card">
+            <span class="feature-icon"><Icon name={item.icon} /></span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

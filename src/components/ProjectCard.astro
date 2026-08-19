@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  category: string;
+  status: string;
+  tech: string[];
+  summary: string;
+}
+
+const { title, category, status, tech, summary } = Astro.props;
+---
+
+<article class="card project-card">
+  <div class="project-topline">
+    <span class="tag">{category}</span>
+    <span class="status"><Icon name="circle-check" /> {status}</span>
+  </div>
+  <h3>{title}</h3>
+  <p>{summary}</p>
+  <div class="tech-list">
+    {tech.map((item) => <span>{item}</span>)}
+  </div>
+</article>

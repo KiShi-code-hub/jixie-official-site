@@ -1,0 +1,97 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+
+const announcements = (await getCollection('announcements'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+const latestAnnouncement = announcements[0];
+const { Content } = latestAnnouncement ? await render(latestAnnouncement) : { Content: null };
+
+const steps = [
+  { icon: 'message-circle', title: '加入招新群', text: '加入招新 QQ 群，获取报名表和最新安排。' },
+  { icon: 'clipboard', title: '提交报名表', text: '填写并提交报名表，选择感兴趣的部门。' },
+  { icon: 'users', title: '参加宣讲或面试', text: '参加宣讲会或线下面试，和协会同学聊聊。' },
+  { icon: 'circle-check', title: '成为计协成员', text: '公布入选名单，按部门加入对应小组。' },
+];
+
+const faqs = [
+  { question: '没有编程基础可以加入吗？', answer: '可以。协会会组织入门培训，技术部也欢迎零基础同学。' },
+  { question: '面试需要准备什么？', answer: '准备好介绍自己为什么想加入，有作品或兴趣方向可以带上。' },
+  { question: '加入协会要交费吗？', answer: '协会不收取报名费用，具体以学院社团管理规定为准。' },
+  { question: '加入后必须参加所有活动吗？', answer: '不强制参加所有活动，但建议优先参与部门活动和项目例会。' },
+];
+---
+
+<BaseLayout
+  title="加入我们 - 计算机协会"
+  description="计算机协会招新公告、报名流程与常见问题。"
+>
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <p class="eyebrow">Join Us</p>
+      <h1>加入计算机协会</h1>
+      <p>零基础也可以，和我们一起学技术、做项目、办活动。</p>
+    </div>
+  </section>
+
+  {latestAnnouncement && (
+    <section class="section">
+      <div class="container">
+        <SectionHeading
+          eyebrow="招新公告"
+          title={latestAnnouncement.data.title}
+          description={`${latestAnnouncement.data.date} · ${latestAnnouncement.data.category}`}
+        />
+        <article class="card article-card">
+          <div class="card-body prose">
+            {Content && <Content />}
+          </div>
+        </article>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="报名流程"
+        title="四步完成报名"
+        description="报名信息以招新群内最新通知为准。"
+      />
+      <div class="steps">
+        {steps.map((step) => (
+          <div class="step">
+            <span class="step-icon"><Icon name={step.icon} /></span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="常见问题"
+        title="你可能想问"
+        description="如果这里没有回答你的问题，欢迎直接在招新群内提问。"
+      />
+      <div class="article-list">
+        {faqs.map((faq) => (
+          <article class="card article-row">
+            <div>
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </div>
+            <span class="row-link"><Icon name="chevron-right" /></span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

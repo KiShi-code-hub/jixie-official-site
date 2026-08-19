@@ -1,0 +1,29 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  date: string;
+  location: string;
+  category: string;
+  summary: string;
+  image: string;
+}
+
+const { title, date, location, category, summary, image } = Astro.props;
+---
+
+<article class="card activity-card">
+  <div class="card-media">
+    <img src={image} alt={`${title} 活动照片`} loading="lazy" />
+    <span class="tag">{category}</span>
+  </div>
+  <div class="card-body">
+    <div class="meta-line">
+      <span><Icon name="calendar-days" /> {date}</span>
+      <span><Icon name="map-pin" /> {location}</span>
+    </div>
+    <h3>{title}</h3>
+    <p>{summary}</p>
+  </div>
+</article>
